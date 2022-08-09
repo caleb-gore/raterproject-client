@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { getGames } from "../../managers/GameManager"
 
 export const GameList = () => {
     const [games, setGames] = useState([])
-
+    const navigate = useNavigate()
     useEffect(
         () => {
             getGames().then(setGames)
@@ -13,7 +13,13 @@ export const GameList = () => {
     
     return(
         <>
-        {games.map(game => <Link to={`/games/${game.id}`} key={`game--${game.id}`}>{game.title}</Link>)}
+        <div>
+        <button onClick={()=> navigate('/games/new')}>Register New Game</button>
+        </div>
+        {games.map(game => <div>
+            <Link to={`/games/${game.id}`} key={`game--${game.id}`}>{game.title}</Link>
+            </div>
+            )}
         </>
     )
 }
